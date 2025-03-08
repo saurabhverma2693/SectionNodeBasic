@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const { text } = require('stream/consumers');
+const { Console } = require('console');
  const server = http.createServer((req,res)=>{
 const URL = req.url;
 const Method = req.method;
@@ -15,7 +16,20 @@ if(URL === '/'){
 } 
 
 if(URL === '/message' && Method === "POST"){
-fs.writeFileSync('message.txt','Dummy');
+    const body = [];
+    req.on("data",(chunk)=>{
+console.log(chunk);
+body.push(chunk);
+    })
+
+    req.on("end",()=>{
+const parsedBody = Buffer.concat(body).toString();
+// Console.log(parsedBody);
+const message = parsedBody.split('=')[1]; 
+fs.writeFileSync('message.txt',message);
+    });
+
+
 res.statusCode = 302;
 res.setHeader('Location','/');
 return res.end();
