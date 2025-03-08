@@ -22,17 +22,16 @@ console.log(chunk);
 body.push(chunk);
     })
 
-    req.on("end",()=>{
+  return  req.on("end",()=>{
 const parsedBody = Buffer.concat(body).toString();
 // Console.log(parsedBody);
 const message = parsedBody.split('=')[1]; 
 fs.writeFileSync('message.txt',message);
-    });
-
 
 res.statusCode = 302;
 res.setHeader('Location','/');
 return res.end();
+    });
 }
 res.setHeader('Content-Type','text/html');
 res.write('<html>');
