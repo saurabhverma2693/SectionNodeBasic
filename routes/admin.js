@@ -1,13 +1,14 @@
 const express = require('express');
+const path = require('path');
 
 const router = express.Router();
 
-router.get('/add-product',(req,res,next)=>{
+router.get('/admin/add-product',(req,res,next)=>{
     console.log("In another middleware");
-  res.setHeader().send('<form acttion="/product" method="POST"> <input type="text" name="title"> <button type="Submit">Add Product</button> </form>'); 
+  res.sendFile(path.join(__dirname,'../','Views','addproduct.html'));
 });
 
-router.post('/product',(req,res,next)=>{
+router.post('/add-product',(req,res,next)=>{
   console.log(req.body)   
   res.redirect('/'); 
 });

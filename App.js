@@ -21,7 +21,7 @@ const shopRoutes = require('./routes/shop');
 
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.use(adminRoutes);
+app.use('/admin',adminRoutes);
 
 app.use(shopRoutes);
 
